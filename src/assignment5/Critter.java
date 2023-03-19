@@ -2,12 +2,12 @@
  * CRITTERS Critter.java
  * EE422C Project 5 submission by
  * Replace <...> with your actual data.
- * <Student1 Name>
- * <Student1 EID>
- * <Student1 5-digit Unique No.>
- * <Student2 Name>
- * <Student2 EID>
- * <Student2 5-digit Unique No.>
+ * Jesus Hernandez
+ * jh69848
+ * 17155
+ * Jaime Sanchez
+ * js96757
+ * 17160
  * Slip days used: <0>
  * Fall 2021
  */
@@ -78,7 +78,7 @@ public abstract class Critter {
 
 	/* END --- NEW FOR PROJECT 5
 			rest is unchanged from Project 4 */
-
+    private boolean moved = false;
     private int energy = 0;
 
     private int x_coord;
@@ -116,8 +116,29 @@ public abstract class Critter {
      */
     public static void createCritter(String critter_class_name)
             throws InvalidCritterException {
-        // TODO: Complete this method
+        //call the set of new critters? from new class. do a try and catch here for the exception
+
+        try{
+            Critter addingCrit = (Critter) Class.forName(myPackage +"."+critter_class_name).newInstance(); //newInstace might cause a problem?
+            initializeCritter(addingCrit);
+        }
+        catch (IllegalAccessException | InstantiationException | ClassNotFoundException e){
+            //return the only one exception that is being asked
+            throw new InvalidCritterException(critter_class_name); //throw exception just for the critter_class_name
+        }
     }
+    /**
+     * Initialize a single critter with its energy and x,y coordinates and add into an arraylist
+     * @param addingCrit
+     * @return void
+     */
+    private static void initializeCritter(Critter addingCrit) {
+        addingCrit.energy = Params.START_ENERGY;
+        addingCrit.x_coord = getRandomInt(Params.WORLD_WIDTH);
+        addingCrit.y_coord = getRandomInt(Params.WORLD_HEIGHT);
+        population.add(addingCrit);
+    }
+
 
     /**
      * Gets a list of critters of a specific type.
@@ -129,22 +150,168 @@ public abstract class Critter {
      */
     public static List<Critter> getInstances(String critter_class_name)
             throws InvalidCritterException {
-        // TODO: Complete this method
-        return null;
+        try{
+            Critter oneCritterClass = (Critter) Class.forName(myPackage +"."+critter_class_name).newInstance();
+            List<Critter> tepmList = new ArrayList<Critter>();
+
+            for(int i=0; i< population.size(); i++){
+                if(population.get(i).toString().equals(oneCritterClass.toString())){
+                    tepmList.add(population.get(i));
+                }
+            }
+            return tepmList;
+        }
+        catch (IllegalAccessException | InstantiationException | ClassNotFoundException e){
+            //return the only one exception that is being asked
+            throw new InvalidCritterException(critter_class_name); //throw exception just for the critter_class_name
+        }
     }
 
     /**
      * Clear the world of all critters, dead and alive
      */
     public static void clearWorld() {
-        // TODO: Complete this method
+        population.clear();
     }
 
+    /**
+     * Simulates the world by:
+     * Stepping through all the alive critters
+     * Handling encounters
+     * Removing dead critters after fighting
+     * Generating required clovers
+     * Finally, inserting babies into the population arraylist
+     */
     public static void worldTimeStep() {
-        // TODO: Complete this method
+        //doTimeSteps();
+        // TODO call each doTimeStep
+
+        doEncounters();
+        for (int i =0; i < population.size(); i++){ //updateRest Energy ,removes dead, and resets moved status
+            population.get(i).energy -= Params.REST_ENERGY_COST;
+            if (population.get(i).energy <= 0){
+                population.remove(population.get(i));
+                //i--; using .remove messes with the index
+            }
+            else {
+                population.get(i).moved = false;
+            }
+        }
+        genClover();
+
+        for(int i=0; i< babies.size(); i++){ //adds babies to the population
+            population.add(babies.get(i)); //reproduce will be done inside each subclass in their doTimeStep
+        }
+        babies.clear();
+
     }
 
-    public abstract void doTimeStep();
+    /**
+     * Generates a specific number of clovers in world specified in the Params class
+     */
+    private static void genClover(){
+        try {
+            for (int i = 0; i < Params.REFRESH_CLOVER_COUNT; i++) {
+                createCritter("Clover");
+            }
+        }catch(InvalidCritterException ignored){
+            //there should always be a class called Clover
+        }
+    }
+
+
+    /**
+     * Function handles the encounters of critters
+     * If an encounter happens, doFight for the two critters is called, even if a clover is encountered
+     * If a fight happens, doEncounter removes any dead critters
+     */
+    private static void doEncounters() {//determine if two critters are overlapping
+        for(int i =0; i< population.size(); i++){
+            for(int j=i+1; j< population.size(); j++){
+                Critter crit1Obj = population.get(i);
+                Critter crit2Obj = population.get(j);
+                int crit1Xa = crit1Obj.x_coord;
+                int crit1Ya = crit1Obj.y_coord;
+                int crit2Xa = crit2Obj.x_coord;
+                int crit2Ya = crit2Obj.y_coord;
+                boolean crit1Fight = false;
+                boolean crit2Fight = false;
+
+                int whoWon= 0;
+                if((crit1Xa == crit2Xa) && (crit1Ya==crit2Ya)){ //overlap
+                    crit1Fight =crit1Obj.fight(population.get(j).toString()); //returns true if crit1 wants to fight depending on its internal conditions and/or depending on who it is fighting
+                    crit2Fight =crit2Obj.fight(population.get(i).toString()); //returns true if crit2 wants to fight depending on its internal conditions and/or depending on who it is fighting
+
+                    int crit1Xb = crit1Obj.x_coord; //x and y coordinates might be updated after invoking fight
+                    int crit1Yb = crit1Obj.y_coord;
+                    int crit2Xb = crit2Obj.x_coord;
+                    int crit2Yb = crit2Obj.x_coord;
+                    if((crit1Xb == crit2Xb) && (crit1Yb==crit2Yb) && (crit2Obj.energy>0) && (crit1Obj.energy>0)){   //(crit1Fight & crit2Fight){//if they both want to fight
+                        whoWon = doFight(crit1Obj,crit2Obj, crit1Fight, crit2Fight);
+                        if(whoWon ==1){//remove crit2Obj
+                            crit1Obj.energy = crit1Obj.energy + (crit2Obj.energy/2);
+                            population.remove(population.get(j));
+                            j--;
+                            //continue checking to see if there are more critters in the same space as crit1
+                        }else{//remove crit1Obj
+                            crit2Obj.energy = crit2Obj.energy + (crit1Obj.energy/2);
+                            population.remove(population.get(i));
+                            i--; //?
+                            break;
+                        }
+                    }
+                    else{
+                        //if both ran away?...
+                        if(crit2Obj.energy <= 0){
+                            population.remove(population.get(j));
+                            j--;
+                        }
+                        else if(crit1Obj.energy <= 0){
+                            population.remove(population.get(i));
+                            i--;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+
+    /**
+     * Helper function to determine with of the two critters won based on each energy
+     * @param critter1
+     * @param critter2
+     * @param critterFight1
+     * @param critterFight2
+     * @return int
+     */
+    private static int doFight(Critter critter1, Critter critter2, boolean critterFight1, boolean critterFight2) {
+        int random1 =0;
+        int random2 =0;
+        if(critterFight1){ //critter 1 decided to fight, o.w. random1 =0
+            random1 = getRandomInt(critter1.energy);
+        }
+        if(critterFight2){ //critter 2 decided to fight, o.w. random2 =0
+            random2 = getRandomInt(critter2.energy);
+        }
+
+
+        if(random1 ==random2){
+            return 1; //arbitrary return any
+        }
+        if(random1 >random2){
+            return 1; //1 won
+        }
+        else
+        {
+            return 2;
+        }
+    }
+
+    public abstract void doTimeStep(); //must be done inside each critter
 
     public abstract boolean fight(String oponent);
 
@@ -158,17 +325,148 @@ public abstract class Critter {
         return energy;
     }
 
+    /**
+     * Function that implements the walk functionality for the critters in the world, if run was not already called for
+     * a specific critter during a single time step
+     * @param direction
+     */
     protected final void walk(int direction) {
-        // TODO: Complete this method
+        this.energy -= Params.WALK_ENERGY_COST; // subtracts energy for walking
+        if (!moved) {
+            //updates x, y positions
+            if (direction == 0) {
+                x_coord += 1;
+            } else if (direction == 1) {
+                x_coord += 1;
+                y_coord -= 1;
+            } else if (direction == 2) {
+                y_coord -= 1;
+            } else if (direction == 3) {
+                x_coord -= 1;
+                y_coord -= 1;
+            } else if (direction == 4) {
+                x_coord -= 1;
+            } else if (direction == 5) {
+                x_coord -= 1;
+                y_coord += 1;
+            } else if (direction == 6) {
+                y_coord += 1;
+            } else if (direction == 7) {
+                x_coord += 1;
+                y_coord += 1;
+            }
+            //makes sure coordinates are within world
+            if (x_coord > Params.WORLD_WIDTH) {
+                x_coord = x_coord - Params.WORLD_WIDTH;
+            }
+            if (x_coord < 0) {
+                x_coord = Params.WORLD_WIDTH + x_coord;
+            }
+            if (y_coord < 0) {
+                y_coord = Params.WORLD_HEIGHT + y_coord;
+            }
+            if (y_coord > Params.WORLD_HEIGHT) {
+                y_coord = y_coord - Params.WORLD_HEIGHT;
+            }
+            moved = true;
+
+        }
     }
 
+    /**
+     * Function that implements the run functionality for the critters in the world, if run was not already called for
+     * a specific critter during a single time step
+     * @param direction
+     */
     protected final void run(int direction) {
-        // TODO: Complete this method
+        this.energy -= Params.RUN_ENERGY_COST; // subtracts energy forom running
+
+        if (!moved){
+            //updates x, y positions
+            if ( direction == 0){
+                x_coord += 2;
+            } else if (direction ==1) {
+                x_coord += 2;
+                y_coord -= 2;
+            } else if (direction == 2) {
+                y_coord -= 2;
+            } else if (direction == 3) {
+                x_coord -= 2;
+                y_coord -= 2;
+            } else if (direction == 4) {
+                x_coord -= 2;
+            } else if (direction == 5) {
+                x_coord -= 2;
+                y_coord += 2;
+            } else if (direction == 6) {
+                y_coord += 2;
+            } else if (direction == 7) {
+                x_coord += 2;
+                y_coord += 2;
+            }
+            //makes sure coordinates are within world
+            if (x_coord > Params.WORLD_WIDTH){
+                x_coord = x_coord - Params.WORLD_WIDTH;
+            }if (x_coord < 0) {
+                x_coord = Params.WORLD_WIDTH + x_coord;
+            }if (y_coord < 0){
+                y_coord = Params.WORLD_HEIGHT + y_coord;
+            }if (y_coord > Params.WORLD_HEIGHT){
+                y_coord =  y_coord - Params.WORLD_HEIGHT;
+            }
+            moved = true;
+
+        }
 
     }
 
+    /**
+     * The reproduced function is used for adding a offspring into the world and inserting into the babies ArrayList
+     * @param offspring
+     * @param direction
+     */
     protected final void reproduce(Critter offspring, int direction) {
-        // TODO: Complete this method
+        if (this.energy < Params.MIN_REPRODUCE_ENERGY){
+            return;
+        }
+        offspring.energy = this.energy/2;
+        this.energy -= offspring.energy;
+        babies.add(offspring);
+
+        //updates x, y positions
+        if ( direction == 0){
+            offspring.x_coord = x_coord + 1;
+        } else if (direction ==1) {
+            offspring.x_coord = x_coord + 1;
+            offspring.y_coord = y_coord - 1;
+        } else if (direction == 2) {
+            offspring.y_coord = y_coord - 1;
+        } else if (direction == 3) {
+            offspring.x_coord = x_coord - 1;
+            offspring.y_coord = y_coord - 1;
+        } else if (direction == 4) {
+            offspring.x_coord = x_coord - 1;
+        } else if (direction == 5) {
+            offspring.x_coord = x_coord - 1;
+            offspring.y_coord = y_coord + 1;
+        } else if (direction == 6) {
+            offspring.y_coord = y_coord + 1;
+        } else if (direction == 7) {
+            offspring.x_coord = x_coord +1;
+            offspring.y_coord = y_coord + 1;
+        }
+        //makes sure coordinates are within world
+        if (offspring.x_coord > Params.WORLD_WIDTH){
+            offspring.x_coord = offspring.x_coord - Params.WORLD_WIDTH;
+        }if (x_coord < 0) {
+            offspring.x_coord = Params.WORLD_WIDTH + offspring.x_coord;
+        }if (y_coord < 0){
+            offspring.y_coord = Params.WORLD_HEIGHT + offspring.y_coord;
+        }if (y_coord > Params.WORLD_HEIGHT){
+            offspring.y_coord =  offspring.y_coord - Params.WORLD_HEIGHT;
+        }
+
+
     }
 
     /**
