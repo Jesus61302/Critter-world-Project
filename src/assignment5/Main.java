@@ -53,6 +53,7 @@ public class Main extends Application {
     private Label stepsLabel;
     private Label seedLabel;
     private Label animationLabel;
+    private Label statsLabel;
 
     //Text fields
     private TextField amountText;
@@ -65,10 +66,27 @@ public class Main extends Application {
     private Button setSeedBtn;
     private Button runBtn;
     private Button quitBtn;
+    private Button tempBtn0;
+    private Button tempBtn1;
+    private Button tempBtn2;
+    private Button tempBtn3;
+    private Button tempBtn4;
+    private Button tempBtn5;
+    private Button tempBtn6;
+    private Button tempBtn7;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+//        int numCritters =0;
+//        ArrayList<ArrayList<String>> runningCrits = new ArrayList<ArrayList<String>>();
+//        for(int i=0 ;i<8; i++){
+//            ArrayList<String> buttonSet = new ArrayList<String>();
+//            buttonSet.add("");
+//            runningCrits.add(buttonSet);
+//
+//        }
+
 
         //zybooks
         Scene scene = null;         // Scene contains all content
@@ -83,6 +101,7 @@ public class Main extends Application {
         stepsLabel = new Label("Steps:");
         seedLabel = new Label("Seed:");
         animationLabel = new Label("Animation:");
+        statsLabel = new Label("Stats:");
 
         //User input texts
         amountText = new TextField();
@@ -125,6 +144,8 @@ public class Main extends Application {
         gridPane.add(animationLabel, 0, 2);
         gridPane.add(animationText, 1, 2);
 
+        gridPane.add(statsLabel, 0,3);
+
         //critters drop down menu
         String [] critterNames = findCritters();
         final String[] selectedCrit = {new String()};
@@ -132,13 +153,46 @@ public class Main extends Application {
         ComboBox comboBox = new ComboBox(FXCollections.observableArrayList(critterNames));
         Label selectedDropDown = new Label("default item selected");
         //action for dropdown
+//        int rowNumForStats =4; //where the buttons can be pressed
+//        int numCritTaken =0;
         EventHandler<ActionEvent> eventDropDown = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 selectedDropDown.setText(comboBox.getValue() + " selected");
                 selectedCrit[0] = (String) comboBox.getValue();
+//                ArrayList<String> tempStr = new ArrayList<String>();
+//                tempStr.add(selectedCrit[0]);
+//                for(int i=0; i<8;i++){
+//                    if(runningCrits.get(i).contains(selectedCrit[0])){
+//                        break;
+//                    }
+//                    runningCrits.set(i,tempStr); //add any newly added crits for stats
+//                    break;
+//
+//                }
             }
         };
+
+        //for stats buttons
+
+        tempBtn0 = new Button(critterNames[0]);
+        gridPane.add(tempBtn0, 0,4);
+        tempBtn1 = new Button(critterNames[1]);
+        gridPane.add(tempBtn1, 0,5);
+        tempBtn2 = new Button(critterNames[2]);
+        gridPane.add(tempBtn2, 0,6);
+        tempBtn3 = new Button(critterNames[3]);
+        gridPane.add(tempBtn3, 0,7);
+        tempBtn4 = new Button(critterNames[4]);
+        gridPane.add(tempBtn4, 0,8);
+        tempBtn5 = new Button(critterNames[5]);
+        gridPane.add(tempBtn5, 0,9);
+//        tempBtn7 = new Button(critterNames[6]);
+//        gridPane.add(tempBtn7, 0,10);
+//        gridPane.add(tempBtn7, 0,11);
+
+
+
         comboBox.setOnAction(eventDropDown);
         gridPane.add(comboBox, 1,0);
 
@@ -205,6 +259,10 @@ public class Main extends Application {
             }
         });
 
+
+
+
+
         primaryStage.setScene(scene);    // Set window's scene
         primaryStage.setTitle("Critters"); // Set window's title
         primaryStage.show();             // Display window
@@ -224,7 +282,6 @@ public class Main extends Application {
         }
 
         Iterator<String> iter = arrString.iterator();
-        //|| iter.next().contains("Critter$CritterShape") || iter.next().contains("InvalidCritterException") || iter.next().contains("Params") || iter.next().contains("Critter") || iter.next().contains("Critter$TestCritter")
         while(iter.hasNext()){
             if(iter.next().contains("Main")){
                 iter.remove();
@@ -248,3 +305,4 @@ public class Main extends Application {
 
 
 }
+
