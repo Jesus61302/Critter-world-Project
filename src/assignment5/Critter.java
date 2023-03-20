@@ -1,5 +1,4 @@
 /*
- * CRITTERS Critter.java
  * EE422C Project 5 submission by
  * Replace <...> with your actual data.
  * Jesus Hernandez
@@ -9,7 +8,7 @@
  * js96757
  * 17160
  * Slip days used: <0>
- * Fall 2021
+ * Spring 2023
  */
 
 package assignment5;
@@ -62,8 +61,71 @@ public abstract class Critter {
 
     public abstract CritterShape viewShape();
 
+
+    /**
+     * Method look determines if a critter is occupied at a specific location
+     * if so return that critter's string
+     * o.w. return null if empty
+     * @param direction
+     * @param steps
+     * @return String or null
+     */
     protected final String look(int direction, boolean steps) {
-        return "";
+        //false = 1 step, true = 2 steps
+        this.energy -= Params.LOOK_ENERGY_COST;
+        int numSteps;
+        if(steps){
+            numSteps =2;
+        }else{
+            numSteps =1;
+        }
+        int currentX = x_coord;
+        int currentY = y_coord;
+        if (direction == 0) {
+            currentX += numSteps;
+        } else if (direction == 1) {
+            currentX += numSteps;
+            currentY -= numSteps;
+        } else if (direction == 2) {
+            currentY -= numSteps;
+        } else if (direction == 3) {
+            currentX -= numSteps;
+            currentY -= numSteps;
+        } else if (direction == 4) {
+            currentX -= numSteps;
+        } else if (direction == 5) {
+            currentX -= numSteps;
+            currentY += numSteps;
+        } else if (direction == 6) {
+            currentY += numSteps;
+        } else if (direction == 7) {
+            currentX += numSteps;
+            currentY += numSteps;
+        }
+
+        //makes sure coordinates are within world
+        if (currentX > Params.WORLD_WIDTH) {
+            currentX = currentX - Params.WORLD_WIDTH;
+        }
+        if (currentX < 0) {
+            currentX = Params.WORLD_WIDTH + currentX;
+        }
+        if (currentY < 0) {
+            currentY = Params.WORLD_HEIGHT + currentY;
+        }
+        if (currentY > Params.WORLD_HEIGHT) {
+            currentY = currentY - Params.WORLD_HEIGHT;
+        }
+        //look at all the critters locations
+        for(int i =0; i< population.size();i++){
+            Critter critObj = population.get(i);
+            int tempCritX = critObj.x_coord;
+            int tempCritY = critObj.y_coord;
+            if((currentX == tempCritX) &&(currentY == tempCritY)){
+                return critObj.toString();
+            }
+        }
+        return null;
     }
 
     public static String runStats(List<Critter> critters) {
@@ -186,8 +248,9 @@ public abstract class Critter {
         //doTimeSteps();
         // TODO call each doTimeStep
 
-        doEncounters();
+
         for (int i =0; i < population.size(); i++){ //updateRest Energy ,removes dead, and resets moved status
+            population.get(i).doTimeStep();
             population.get(i).energy -= Params.REST_ENERGY_COST;
             if (population.get(i).energy <= 0){
                 population.remove(population.get(i));
@@ -197,6 +260,7 @@ public abstract class Critter {
                 population.get(i).moved = false;
             }
         }
+        doEncounters();
         genClover();
 
         for(int i=0; i< babies.size(); i++){ //adds babies to the population
