@@ -29,6 +29,8 @@ import javafx.geometry.Insets;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Objects;
 
 
 public class Main extends Application {
@@ -203,7 +205,6 @@ public class Main extends Application {
             }
         });
 
-
         primaryStage.setScene(scene);    // Set window's scene
         primaryStage.setTitle("Critters"); // Set window's title
         primaryStage.show();             // Display window
@@ -221,12 +222,19 @@ public class Main extends Application {
             className = className.substring(0, endIndex);
             arrString.add(className);
         }
+
+        Iterator<String> iter = arrString.iterator();
+        //|| iter.next().contains("Critter$CritterShape") || iter.next().contains("InvalidCritterException") || iter.next().contains("Params") || iter.next().contains("Critter") || iter.next().contains("Critter$TestCritter")
+        while(iter.hasNext()){
+            if(iter.next().contains("Main")){
+                iter.remove();
+            }
+        }
+
         //remove all the unnecessary classes, if more classes are added. Remove Here
         arrString.remove("Critter$CritterShape");
         arrString.remove("Critter$TestCritter");
         arrString.remove("InvalidCritterException");
-        arrString.remove("Main");
-        arrString.remove("Main$1");
         arrString.remove("Params");
         arrString.remove("Critter");
 
