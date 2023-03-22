@@ -16,15 +16,18 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
+import javafx.scene.control.ToggleButton;
 
 import java.io.File;
 import java.net.URL;
@@ -54,6 +57,7 @@ public class Main extends Application {
     private Label seedLabel;
     private Label animationLabel;
     private Label statsLabel;
+    private Label cloverStatsLabel;
 
     //Text fields
     private TextField amountText;
@@ -61,19 +65,20 @@ public class Main extends Application {
     private TextField seedText;
     private TextField animationText;
 
+
     //Buttons
     private Button amountBtn;
     private Button setSeedBtn;
     private Button runBtn;
     private Button quitBtn;
-    private Button tempBtn0;
-    private Button tempBtn1;
-    private Button tempBtn2;
-    private Button tempBtn3;
-    private Button tempBtn4;
-    private Button tempBtn5;
-    private Button tempBtn6;
-    private Button tempBtn7;
+    private Button cloverBtn;
+    private Button goblinBtn;
+    private Button leeBtn;
+    private Button nandukiesBtn;
+    private Button telangBtn;
+    private Button valvanoBtn;
+
+    public static Boolean cloverPressed;
 
 
     @Override
@@ -89,11 +94,11 @@ public class Main extends Application {
 
 
         //zybooks
-        Scene scene = null;         // Scene contains all content
+//        Scene scene = null;         // Scene contains all content
         GridPane gridPane = null;   // Positions components within scene
 
         gridPane = new GridPane();   // Create an empty pane
-        scene = new Scene(gridPane); // Create scene containing the grid pane
+        //scene = new Scene(gridPane); // Create scene containing the grid pane
 
         //Labels
         critterLabel = new Label("Critter:");
@@ -172,29 +177,42 @@ public class Main extends Application {
 //                }
             }
         };
+        comboBox.setOnAction(eventDropDown);
+        gridPane.add(comboBox, 1,0);
 
         //for stats buttons
 
-        tempBtn0 = new Button(critterNames[0]);
-        gridPane.add(tempBtn0, 0,4);
-        tempBtn1 = new Button(critterNames[1]);
-        gridPane.add(tempBtn1, 0,5);
-        tempBtn2 = new Button(critterNames[2]);
-        gridPane.add(tempBtn2, 0,6);
-        tempBtn3 = new Button(critterNames[3]);
-        gridPane.add(tempBtn3, 0,7);
-        tempBtn4 = new Button(critterNames[4]);
-        gridPane.add(tempBtn4, 0,8);
-        tempBtn5 = new Button(critterNames[5]);
-        gridPane.add(tempBtn5, 0,9);
-//        tempBtn7 = new Button(critterNames[6]);
-//        gridPane.add(tempBtn7, 0,10);
-//        gridPane.add(tempBtn7, 0,11);
+        cloverBtn = new Button(critterNames[0]);
+        //cloverTBtn = new ToggleButton(critterNames[0]);
+
+        gridPane.add(cloverBtn, 0,4);
+        goblinBtn = new Button(critterNames[1]);
+        gridPane.add(goblinBtn, 0,5);
+        leeBtn = new Button(critterNames[2]);
+        gridPane.add(leeBtn, 0,6);
+        nandukiesBtn = new Button(critterNames[3]);
+        gridPane.add(nandukiesBtn, 0,7);
+        telangBtn = new Button(critterNames[4]);
+        gridPane.add(telangBtn, 0,8);
+        valvanoBtn = new Button(critterNames[5]);
+        gridPane.add(valvanoBtn, 0,9);
 
 
+        cloverStatsLabel = new Label("empty");
+//        if(cloverPressed){
+//            cloverStatsLabel.setText("changed");
+//        }
+        gridPane.add(cloverStatsLabel, 1,4);
 
-        comboBox.setOnAction(eventDropDown);
-        gridPane.add(comboBox, 1,0);
+
+        cloverBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                cloverPressed = !cloverPressed; //toggle
+            }
+        });
+
+
 
         //Buttons
         amountBtn = new Button("ADD Critter/s");
@@ -207,14 +225,14 @@ public class Main extends Application {
                 if(tempAmount.isEmpty()){
                     try {
                         Critter.createCritter(userInput);
-                    } catch (InvalidCritterException e) { //TODO this might be a problem
+                    } catch (InvalidCritterException e) {
                     }
                 }else{
                     int amount = Integer.parseInt(amountText.getText());
                     for(int i =0; i<amount ;i++){
                         try {
                             Critter.createCritter(userInput);
-                        } catch (InvalidCritterException e) { //TODO this might be a problem
+                        } catch (InvalidCritterException e) {
                         }
                     }
                 }
@@ -260,8 +278,25 @@ public class Main extends Application {
         });
 
 
+        // create a label
+        Label label_center = new Label("BorderPane center"); //TODO add the game view here
+        Label label_top = new Label("BorderPane top");
+        Label label_bottom = new Label("BorderPane bottom");
+//        Label label_left = new Label("this is BorderPane left");
+        Label label_right = new Label("BorderPane right");
 
+        //Create a BorderPane
+        BorderPane border_pane = new BorderPane(label_center,
+                label_top, label_right, label_bottom, gridPane); //placed in the center by default?
 
+        //Set alignment
+        border_pane.setAlignment(gridPane, Pos.TOP_LEFT);
+        border_pane.setAlignment(label_top, Pos.CENTER);
+        border_pane.setAlignment(label_bottom, Pos.CENTER);
+        border_pane.setAlignment(label_right, Pos.TOP_RIGHT);
+
+        // create a scene
+        Scene scene = new Scene(border_pane, 800, 800);
 
         primaryStage.setScene(scene);    // Set window's scene
         primaryStage.setTitle("Critters"); // Set window's title
