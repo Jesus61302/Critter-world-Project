@@ -43,10 +43,6 @@ public class Valvano extends Critter{
         run(dir);//will always run
         //picking a new direction
 
-
-
-
-
     }
 
     @Override
@@ -57,15 +53,8 @@ public class Valvano extends Critter{
 
 
     public static String runStats(List<Critter> Valvano) {
-        // TODO
         int totalCurrentSize = Valvano.size();
-
-        System.out.print("Alive: " +totalCurrentSize + "   ");
-        System.out.print("Total produced: " +total + "   ");
-        System.out.print("Produced as Offspring: " +offspring);
-        System.out.println();
-
-        return null;
+        return "Alive: " +totalCurrentSize + "   " +  "   " + "Produced as Offspring: " +offspring ;
     }
 
     @Override

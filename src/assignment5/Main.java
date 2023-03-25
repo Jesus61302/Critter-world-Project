@@ -12,28 +12,28 @@
  */
 package assignment5;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.geometry.Insets;
-import javafx.scene.control.ToggleButton;
+import javafx.util.Duration;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Objects;
+import java.util.List;
 
 
 public class Main extends Application {
@@ -57,13 +57,17 @@ public class Main extends Application {
     private Label seedLabel;
     private Label animationLabel;
     private Label statsLabel;
-    private Label cloverStatsLabel;
 
     //Text fields
     private TextField amountText;
     private TextField stepsText;
     private TextField seedText;
     private TextField animationText;
+    private TextField goblinText;
+    private TextField leeText;
+    private TextField nandukiesText;
+    private TextField telangText;
+    private TextField valvanoText;
 
 
     //Buttons
@@ -71,26 +75,14 @@ public class Main extends Application {
     private Button setSeedBtn;
     private Button runBtn;
     private Button quitBtn;
-    private Button cloverBtn;
-    private Button goblinBtn;
-    private Button leeBtn;
-    private Button nandukiesBtn;
-    private Button telangBtn;
-    private Button valvanoBtn;
-
-    public static Boolean cloverPressed;
-
+    private ToggleButton goblinTBtn;
+    private ToggleButton leeTBtn;
+    private ToggleButton nandukiesTBtn;
+    private ToggleButton telangTBtn;
+    private ToggleButton valvanoTBtn;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        int numCritters =0;
-//        ArrayList<ArrayList<String>> runningCrits = new ArrayList<ArrayList<String>>();
-//        for(int i=0 ;i<8; i++){
-//            ArrayList<String> buttonSet = new ArrayList<String>();
-//            buttonSet.add("");
-//            runningCrits.add(buttonSet);
-//
-//        }
 
 
         //zybooks
@@ -129,6 +121,39 @@ public class Main extends Application {
         animationText.setEditable(true);
         animationText.setText("0"); //change this
 
+        goblinText = new TextField();
+        goblinText.setPrefColumnCount(35);
+        goblinText.setEditable(false);
+        goblinText.setText("");
+
+        leeText = new TextField();
+        leeText.setPrefColumnCount(35);
+        leeText.setEditable(false);
+        leeText.setText("");
+
+        nandukiesText = new TextField();
+        nandukiesText.setPrefColumnCount(35);
+        nandukiesText.setEditable(false);
+        nandukiesText.setText("");
+
+        telangText = new TextField();
+        telangText.setPrefColumnCount(35);
+        telangText.setEditable(false);
+        telangText.setText("");
+
+        valvanoText = new TextField();
+        valvanoText.setPrefColumnCount(35);
+        valvanoText.setEditable(false);
+        valvanoText.setText("");
+
+
+
+        gridPane.add(goblinText, 1, 5);
+        gridPane.add(leeText, 1, 6);
+        gridPane.add(nandukiesText, 1, 7);
+        gridPane.add(telangText, 1, 8);
+        gridPane.add(valvanoText, 1, 9);
+
 
         //Gridpane settings
         gridPane.setPadding(new Insets(10, 10, 10, 10)); // Padding around  grid
@@ -157,61 +182,66 @@ public class Main extends Application {
 
         ComboBox comboBox = new ComboBox(FXCollections.observableArrayList(critterNames));
         Label selectedDropDown = new Label("default item selected");
+
         //action for dropdown
-//        int rowNumForStats =4; //where the buttons can be pressed
-//        int numCritTaken =0;
         EventHandler<ActionEvent> eventDropDown = new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 selectedDropDown.setText(comboBox.getValue() + " selected");
                 selectedCrit[0] = (String) comboBox.getValue();
-//                ArrayList<String> tempStr = new ArrayList<String>();
-//                tempStr.add(selectedCrit[0]);
-//                for(int i=0; i<8;i++){
-//                    if(runningCrits.get(i).contains(selectedCrit[0])){
-//                        break;
-//                    }
-//                    runningCrits.set(i,tempStr); //add any newly added crits for stats
-//                    break;
-//
-//                }
             }
         };
         comboBox.setOnAction(eventDropDown);
         gridPane.add(comboBox, 1,0);
 
-        //for stats buttons
 
-        cloverBtn = new Button(critterNames[0]);
-        //cloverTBtn = new ToggleButton(critterNames[0]);
-
-        gridPane.add(cloverBtn, 0,4);
-        goblinBtn = new Button(critterNames[1]);
-        gridPane.add(goblinBtn, 0,5);
-        leeBtn = new Button(critterNames[2]);
-        gridPane.add(leeBtn, 0,6);
-        nandukiesBtn = new Button(critterNames[3]);
-        gridPane.add(nandukiesBtn, 0,7);
-        telangBtn = new Button(critterNames[4]);
-        gridPane.add(telangBtn, 0,8);
-        valvanoBtn = new Button(critterNames[5]);
-        gridPane.add(valvanoBtn, 0,9);
+        //Toggle Button functionality
+        goblinTBtn = new ToggleButton("Goblin");
+        gridPane.add(goblinTBtn, 0,5);
+        Timeline changeGolbinTextStart = new Timeline(
+                new KeyFrame(Duration.millis(1), event ->{
+                    setCritStatText("Goblin", goblinText);
+                })
+        );
+        statsStop(changeGolbinTextStart, goblinText, goblinTBtn);
 
 
-        cloverStatsLabel = new Label("empty");
-//        if(cloverPressed){
-//            cloverStatsLabel.setText("changed");
-//        }
-        gridPane.add(cloverStatsLabel, 1,4);
+        leeTBtn = new ToggleButton("Lee");
+        gridPane.add(leeTBtn, 0,6);
+        Timeline changeLeeTextStart = new Timeline(
+                new KeyFrame(Duration.millis(1), event ->{
+                    setCritStatText("Lee", leeText);
+                })
+        );
+        statsStop(changeLeeTextStart, leeText, leeTBtn);
 
 
-        cloverBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                cloverPressed = !cloverPressed; //toggle
-            }
-        });
+        nandukiesTBtn = new ToggleButton("Nandukies");
+        gridPane.add(nandukiesTBtn, 0,7);
+        Timeline changeNandukiesTextStart = new Timeline(
+                new KeyFrame(Duration.millis(1), event ->{
+                    setCritStatText("Nandukies", nandukiesText);
+                })
+        );
+        statsStop(changeNandukiesTextStart, nandukiesText, nandukiesTBtn);
 
+        telangTBtn = new ToggleButton("Telang");
+        gridPane.add(telangTBtn, 0,8);
+        Timeline changeTelangTextStart = new Timeline(
+                new KeyFrame(Duration.millis(1), event ->{
+                    setCritStatText("Telang", telangText);
+                })
+        );
+        statsStop(changeTelangTextStart, telangText, telangTBtn);
+
+        valvanoTBtn = new ToggleButton("Valvano");
+        gridPane.add(valvanoTBtn, 0,9);
+        Timeline changeValvanoTextStart = new Timeline(
+                new KeyFrame(Duration.millis(1), event ->{
+                    setCritStatText("Valvano", valvanoText);
+                })
+        );
+        statsStop(changeValvanoTextStart, valvanoText, valvanoTBtn);
 
 
         //Buttons
@@ -259,10 +289,12 @@ public class Main extends Application {
                 String tempAmount = stepsText.getText();
                 if(tempAmount.isEmpty()){//single step
                     Critter.worldTimeStep();
+                    System.out.println("ran");
                 }else{
                     int amount = Integer.parseInt((stepsText.getText()));
                     for(int i=0; i<amount; i++){
                         Critter.worldTimeStep();
+                        System.out.println("ran");
                     }
                 }
             }
@@ -303,6 +335,56 @@ public class Main extends Application {
         primaryStage.show();             // Display window
 
     }
+
+    /**
+     * Method used to add the text-field functionality, when stopping
+     * @param changeTextStart
+     * @param nText
+     * @param TBtn
+     */
+    private void statsStop(Timeline changeTextStart, TextField nText, ToggleButton TBtn) {
+        Timeline changeTextStop = new Timeline(
+                new KeyFrame(Duration.millis(1), event ->{
+                    nText.setText(null);
+                })
+        );
+        changeTextStart.setCycleCount(Animation.INDEFINITE);
+        changeTextStop.setCycleCount(Animation.INDEFINITE);
+        TBtn.setOnAction(event ->{
+            if(TBtn.isSelected()){
+                changeTextStop.stop();
+                changeTextStart.play();
+            }
+            else{
+                changeTextStart.stop();
+                changeTextStop.play();
+            }
+        } );
+    }
+
+    /**
+     * Method used to invoke the runstats methods in each critter
+     * @param crit
+     * @param goblinText
+     */
+    private void setCritStatText(String crit, TextField goblinText) {
+        try {
+            String infoCritter = crit;
+            List<Critter> tempList = Critter.getInstances(infoCritter);
+            Class<?>[] c = {List.class};
+            Method runStats = Class.forName(myPackage + "." + infoCritter).getMethod("runStats", c);
+            String stats = (String) runStats.invoke(null, tempList);
+            goblinText.setText(stats);
+        }
+        catch(  java.lang.reflect.InvocationTargetException | NoSuchMethodException| SecurityException |ClassNotFoundException| IllegalAccessException | InvalidCritterException e){ //removed InstantiationException
+            return;
+        }
+    }
+
+    /**
+     * Method used to find all the critters for dropdown functionality
+     * @return String []
+     */
     public static String [] findCritters() {
         //String scannedPath = scannedPackage.replace('.', '/');
         URL scannedUrl = Thread.currentThread().getContextClassLoader().getResource(myPackage);

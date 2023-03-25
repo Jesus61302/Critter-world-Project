@@ -60,13 +60,7 @@ public class Telang extends Critter{
     }
 
     public static String runStats(List<Critter> Telang ){
-        // TODO
-        System.out.print("Alive: " + Telang.size() + "   ");
-        System.out.print("Total produced: " + allTime + "   ");
-        System.out.print("Produced as Offspring: " + offspring );
-        System.out.println();
-
-        return null;
+        return "Alive: " + Telang.size() + "   " + "Produced as Offspring: " + offspring ;
     }
 
     @Override

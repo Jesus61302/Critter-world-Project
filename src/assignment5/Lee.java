@@ -71,12 +71,7 @@ public class Lee extends Critter{
         return false;
     }
     public static String runStats(List<Critter> Lee ){
-        // TODO
-        System.out.print("Alive: " + Lee.size() + "   ");
-        System.out.print("Total produced: " + allTime + "   ");
-        System.out.print("Produced as Offspring: " + offspring );
-        System.out.println();
-        return null;
+        return "Alive: " + Lee.size() + "   " +  "   " + "Produced as Offspring: " + offspring ;
     }
 
     @Override

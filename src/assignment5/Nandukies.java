@@ -68,15 +68,9 @@ public class Nandukies extends Critter{
     }
 
     public static String runStats(List<Critter> Nandukies) {
-        //TODO
         int totalCurrentSize = Nandukies.size();
+        return "Alive: " +totalCurrentSize + "   " + "Produced as Offspring: " +offspring;
 
-        System.out.print("Alive: " +totalCurrentSize + "   ");
-        System.out.print("Total produced: " +total + "   ");
-        System.out.print("Produced as Offspring: " +offspring);
-        System.out.println();
-
-        return null;
     }
     @Override
     public CritterShape viewShape() {
