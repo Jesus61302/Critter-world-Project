@@ -55,6 +55,14 @@ public class Nandukies extends Critter{
 
     @Override
     public boolean fight(String oponent) {
+        if (Objects.equals(look(dir, false), "N")){
+            if(getEnergy() > Params.MIN_REPRODUCE_ENERGY){
+                offspring ++;
+                Nandukies child = new Nandukies();
+                reproduce(child, getRandomInt(8));
+            }
+            return false;
+        }
 
         if(Objects.equals(oponent, "L")){
             return true;

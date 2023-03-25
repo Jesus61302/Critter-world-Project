@@ -40,8 +40,13 @@ public class Valvano extends Critter{
     @Override
     public void doTimeStep() {
         dir = Critter.getRandomInt(8);
-        run(dir);//will always run
-        //picking a new direction
+        if(look(dir, true)!="V"){ //will run if it encounters a critter not itself
+            run(dir);//will always run
+        }
+        else{ //walk if a critter is itself
+            walk(dir);
+        }
+
 
     }
 
