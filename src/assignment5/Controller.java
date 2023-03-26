@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Controller {
@@ -72,49 +73,65 @@ public class Controller {
     @FXML
     private GridPane worldGrid;
 
+    private static boolean statsb0;
+    private static boolean statsb1;
+    private static boolean statsb2;
+    private static boolean statsb3;
+    private static boolean statsb4;
+
 
     /**
      * Method used to find all the critters for dropdown functionality
      * @return String []
      */
     public static String [] findCritters() {
-//        //String scannedPath = scannedPackage.replace('.', '/');
-//        URL scannedUrl = Thread.currentThread().getContextClassLoader().getResource(myPackage);
-//        File scannedDir = new File(scannedUrl.getFile());
-//
-//        ArrayList<String> arrString = new ArrayList<String>();
-//        for (File file : scannedDir.listFiles()) {
-//            String className = file.getName();
-//            int endIndex = className.length() - ".class".length();
-//            className = className.substring(0, endIndex);
-//            arrString.add(className);
-//        }
-//
-//        Iterator<String> iter = arrString.iterator();
-//        while(iter.hasNext()){
-//            if(iter.next().contains("Main")){
-//                iter.remove();
-//            }
-//        }
-//
-//        //remove all the unnecessary classes, if more classes are added. Remove Here
-//        arrString.remove("Critter$CritterShape");
-//        arrString.remove("Critter$TestCritter");
-//        arrString.remove("InvalidCritterException");
-//        arrString.remove("Params");
-//        arrString.remove("Critter");
-//
-//        //arrString.toArray();
-//        String [] critterNames = new String[arrString.size()];
-//        for(int i=0; i< arrString.size(); i++){
-//            critterNames[i] = arrString.get(i);
-//        }
-        String[] critterNames = new String[5];
-        critterNames[0] = "Goblin";
-        critterNames[1] = "Telang";
-        critterNames[2] = "Nandukies";
-        critterNames[3] = "Lee";
-        critterNames[4] = "Valvano";
+        ArrayList<String> arrString = new ArrayList<>();
+        String[] classPathsArr = System.getProperty("java.class.path").split(System.getProperty("path.separator"));
+
+        for (String classPath : classPathsArr) {
+            String packagePath = classPath + File.separator + myPackage; //get a path
+            File packageDir = new File(packagePath);
+
+            if (packageDir.isDirectory()) {//need to check if it's a directory, breaks otherwise
+                File[] fileArr = packageDir.listFiles();
+
+                for (File file : fileArr) { //look at all the classpathEntries
+                    if (file.getName().endsWith(".class")) {
+                        String className = file.getName().substring(0, file.getName().length() - 6); //keep just the colver name
+                        arrString.add(className);
+                    }
+                }
+                break;
+            }
+        }
+
+        Iterator<String> iter = arrString.iterator();
+        while(iter.hasNext()){
+            if(iter.next().contains("Main")){
+                iter.remove();
+            }
+        }
+
+        //remove all the unnecessary classes, if more classes are added. Remove Here
+        arrString.remove("Controller");
+        arrString.remove("Critter$CritterShape");
+        arrString.remove("Critter$TestCritter");
+        arrString.remove("Critter");
+        arrString.remove("InvalidCritterException");
+        arrString.remove("Params");
+        arrString.remove("Clover");
+
+        //arrString.toArray();
+        String [] critterNames = new String[arrString.size()];
+        for(int i=0; i< arrString.size(); i++){
+            critterNames[i] = arrString.get(i);
+        }
+//        String[] critterNames = new String[5];
+//        critterNames[0] = "Goblin";
+//        critterNames[1] = "Telang";
+//        critterNames[2] = "Nandukies";
+//        critterNames[3] = "Lee";
+//        critterNames[4] = "Valvano";
         return critterNames;
     }
 
@@ -147,6 +164,11 @@ public class Controller {
         statsToggle2.setText(Critters[2]);
         statsToggle3.setText(Critters[3]);
         statsToggle4.setText(Critters[4]);
+        statsb0 =false;
+        statsb1 =false;
+        statsb2 =false;
+        statsb3 =false;
+        statsb4 =false;
 
         CritterDrropDown.setItems(FXCollections.observableArrayList(Critters));
     }
@@ -207,12 +229,12 @@ public class Controller {
     //stats0-4 are responsible for displaying the stats of the critters
     public void stats0(ActionEvent e){
         try{
-            Timeline changeNandukiesTextStart = new Timeline(
+            Timeline changeGolbinTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
                         setCritStatText(statsToggle0.getText(), stats0);
                     })
             );
-            statsStop(changeNandukiesTextStart, stats0, statsToggle0);
+            statsStop(changeGolbinTextStart, stats0, statsToggle0);
 
 
         }catch (Exception exept){
@@ -221,12 +243,12 @@ public class Controller {
     }
     public void stats1(ActionEvent e){
         try{
-            Timeline changeNandukiesTextStart = new Timeline(
+            Timeline changeLeeTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
                         setCritStatText(statsToggle1.getText(), stats1);
                     })
             );
-            statsStop(changeNandukiesTextStart, stats1, statsToggle1);
+            statsStop(changeLeeTextStart, stats1, statsToggle1);
 
 
         }catch (Exception exept){
@@ -249,12 +271,12 @@ public class Controller {
     }
     public void stats3(ActionEvent e){
         try{
-            Timeline changeNandukiesTextStart = new Timeline(
+            Timeline changeTelangTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
                         setCritStatText(statsToggle3.getText(), stats3);
                     })
             );
-            statsStop(changeNandukiesTextStart, stats3, statsToggle3);
+            statsStop(changeTelangTextStart, stats3, statsToggle3);
 
 
         }catch (Exception exept){
@@ -263,12 +285,12 @@ public class Controller {
     }
     public void stats4(ActionEvent e){
         try{
-            Timeline changeNandukiesTextStart = new Timeline(
+            Timeline changeValvanoTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
                         setCritStatText(statsToggle4.getText(), stats4);
                     })
             );
-            statsStop(changeNandukiesTextStart, stats4, statsToggle4);
+            statsStop(changeValvanoTextStart, stats4, statsToggle4);
 
 
         }catch (Exception exept){
