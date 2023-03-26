@@ -177,8 +177,8 @@ public class Main extends Application {
         gridPane.add(statsLabel, 0,3);
 
         //critters drop down menu
-        //String [] critterNames = findCritters();
-        String [] critterNames = new String[5];
+        String [] critterNames = Controller.findCritters();
+        //String [] critterNames = new String[5];
         //critterNames = findCritters();
         final String[] selectedCrit = {new String()};
 
