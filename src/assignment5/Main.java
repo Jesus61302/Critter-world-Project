@@ -326,11 +326,11 @@ public class Main extends Application {
         //Set alignment
         border_pane.setAlignment(gridPane, Pos.TOP_LEFT);
         border_pane.setAlignment(label_top, Pos.CENTER);
-        border_pane.setAlignment(label_bottom, Pos.CENTER);
+        border_pane.setAlignment(label_bottom, Pos.BOTTOM_CENTER); //TODO
         border_pane.setAlignment(label_right, Pos.TOP_RIGHT);
 
         // create a scene
-        Scene scene = new Scene(border_pane, 800, 800);
+        Scene scene = new Scene(border_pane, 1000, 800);
 
         primaryStage.setScene(scene);    // Set window's scene
         primaryStage.setTitle("Critters"); // Set window's title
