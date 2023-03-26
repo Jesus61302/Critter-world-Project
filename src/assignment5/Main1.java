@@ -17,7 +17,7 @@ public class Main1 extends Application {
     //https://www.youtube.com/watch?v=yqUntgnOXbY
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent parent = FXMLLoader.load(this.getClass().getResource("CrittersDisplay.fxml"));
+        Parent parent = FXMLLoader.load(this.getClass().getResource("TitleScreen.fxml"));
         Scene scene = new Scene(parent);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Critters");
