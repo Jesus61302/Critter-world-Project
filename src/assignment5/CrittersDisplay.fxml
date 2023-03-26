@@ -69,7 +69,7 @@
                         <Label layoutX="127.0" layoutY="6.0" text="Step" underline="true" />
                         <Label layoutX="75.0" layoutY="40.0" text="Amount" />
                         <TextField fx:id="stepAmountTF" alignment="CENTER_RIGHT" layoutX="22.0" layoutY="57.0" text="1" />
-                        <Button fx:id="StepBtn" layoutX="199.0" layoutY="57.0" mnemonicParsing="false" onAction="#setSeed" text="Step" />
+                        <Button fx:id="StepBtn" layoutX="199.0" layoutY="57.0" mnemonicParsing="false" onAction="#step" text="Step" />
                      </children>
                   </AnchorPane>
                </children>
