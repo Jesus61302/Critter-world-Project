@@ -13,6 +13,14 @@
 
 package assignment5;
 
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -35,6 +43,7 @@ public abstract class Critter {
         DIAMOND,
         STAR
     }
+
 
     /* the default color is white, which I hope makes critters invisible by default
      * If you change the background color of your View component, then update the default
@@ -134,8 +143,28 @@ public abstract class Critter {
     }
 
 
-    public static void displayWorld(Object pane) {
-        // TODO Implement this method
+    public static void displayWorld(Object pane) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        GridPane world = (GridPane)pane;
+
+        for(int x = 0; x < world.getColumnConstraints().size(); x++){
+            for (int y = 0; y < world.getRowConstraints().size(); y++){
+                for(int i = 0; i < population.size(); i++){
+                    if (population.get(i).x_coord == x & population.get(i).y_coord == y){
+                        //todo: place Critters
+                        String shape = population.get(i).viewShape().toString();
+                        shape = shape.toLowerCase();
+                        shape = shape.substring(0,1).toUpperCase() + shape.substring(1);
+                        Object temp = Class.forName("javafx.scene.shape" +"."+ shape ).newInstance();
+                        System.out.println(temp.getClass().toString());
+                        //world.add(temp,x,y);
+
+                    }
+                }
+
+
+            }
+        }
+
     }
 
 	/* END --- NEW FOR PROJECT 5
@@ -245,7 +274,7 @@ public abstract class Critter {
      * Finally, inserting babies into the population arraylist
      */
     public static void worldTimeStep() {
-        //doTimeSteps();
+        doTimeSteps();
         // TODO call each doTimeStep
 
 
@@ -268,6 +297,15 @@ public abstract class Critter {
         }
         babies.clear();
 
+    }
+    /**
+     * Function runs doTimeStep for each critter alive in the population arraylist
+     */
+    private static void doTimeSteps(){
+        int sizeP = population.size();
+        for(int i=0; i<sizeP; i++){
+            population.get(i).doTimeStep(); //determine how they move, but must move everytime
+        }
     }
 
     /**

@@ -10,7 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
@@ -72,6 +76,8 @@ public class Controller {
     private Label stats4;
     @FXML
     private GridPane worldGrid;
+    @FXML
+    private Button initializebtn;
 
     private static boolean statsb0;
     private static boolean statsb1;
@@ -148,6 +154,9 @@ public class Controller {
             stage.show();
 
 
+
+
+
         }catch (Exception e){
             stats0.setText("Hi");
         }
@@ -157,7 +166,7 @@ public class Controller {
      * Initializes values to Scene
      * @param event
      */
-    public void init(ActionEvent event){
+    public void init(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         String[] Critters = findCritters();
         statsToggle0.setText(Critters[0]);
         statsToggle1.setText(Critters[1]);
@@ -171,6 +180,31 @@ public class Controller {
         statsb4 =false;
 
         CritterDrropDown.setItems(FXCollections.observableArrayList(Critters));
+
+        //initializes gridpane for the World
+        int numCols = Params.WORLD_WIDTH;
+        int numRows = Params.WORLD_HEIGHT;
+        for (int i = 0; i < numCols; i++) {
+            ColumnConstraints colConst = new ColumnConstraints();
+            colConst.setPercentWidth(100.0 / numCols);
+            worldGrid.getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < numRows; i++) {
+            RowConstraints rowConst = new RowConstraints();
+            rowConst.setPercentHeight(100.0 / numRows);
+            worldGrid.getRowConstraints().add(rowConst);
+        }
+        worldGrid.getColumnConstraints().remove(0);
+        worldGrid.getRowConstraints().remove(0);
+
+        Critter.displayWorld(worldGrid);
+        initializebtn.setDisable(true);
+//        Circle temp = new Circle();
+//        temp.setFill(Color.BLUE);
+//        temp.setRadius(5);
+//        worldGrid.add(temp,0,0);
+
+
     }
 
     /**
@@ -183,12 +217,18 @@ public class Controller {
             String crit = (String)CritterDrropDown.getValue();
             for(int i = 0; i < amount; i++){
                 Critter.createCritter(crit);
-
+                Critter.displayWorld(worldGrid);
             }
         }
         catch(NumberFormatException e ){
             populateAmount.setText("num only");
         } catch (InvalidCritterException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
     }
@@ -219,9 +259,16 @@ public class Controller {
             int amount = Integer.parseInt(stepAmountTF.getText());
             for(int i = 0; i < amount; i++){
                 Critter.worldTimeStep();
+                Critter.displayWorld(worldGrid);
             }
         }catch (NumberFormatException e){
             stepAmountTF.setText("Numbers Only");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (InstantiationException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
         }
     }
 
