@@ -51,7 +51,7 @@ public class CritterShapes {
     public static Shape  getShape(Critter.CritterShape shape,Double length, Double width,
                             javafx.scene.paint.Color color, javafx.scene.paint.Color outline ) throws InvalidCritterException {
         String shapeStr = shape.toString().toLowerCase();
-        if ( shapeStr.equals("cirlce")){
+        if ( shapeStr.equals("circle")){
             return getCircle(length, width, color, outline);
         } else if (shapeStr.equals("square")) {
             return getSquare(length, width, color, outline);

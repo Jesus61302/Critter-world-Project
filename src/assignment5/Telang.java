@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 /**
  * The Telang Critter will have an equal probability of either wlaking, running, or reproducing
@@ -65,12 +67,12 @@ public class Telang extends Critter{
 
     @Override
     public CritterShape viewShape() {
-    return CritterShape.SQUARE;
+    return CritterShape.TRIANGLE;
 }
 
     @Override
     public javafx.scene.paint.Color viewOutlineColor() {
-        return javafx.scene.paint.Color.BLUE;
+        return Color.RED;
     }
 }
 
