@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="DisplayScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment5.Controller">
+<BorderPane fx:id="DisplayScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1000.0" style="-fx-background-color: #26F0E4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="assignment5.Controller">
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -80,9 +80,9 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane maxHeight="580.0" maxWidth="650.0" prefHeight="580.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="Center" maxHeight="580.0" maxWidth="650.0" prefHeight="580.0" prefWidth="650.0" BorderPane.alignment="CENTER">
          <children>
-            <GridPane fx:id="worldGrid" alignment="CENTER" gridLinesVisible="true" layoutX="34.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="560.0" prefWidth="650.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="worldGrid" alignment="CENTER" gridLinesVisible="true" layoutX="34.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #C4EE1C;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
               </columnConstraints>

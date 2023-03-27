@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -97,6 +98,9 @@ public class Controller {
 
     @FXML
     private Button quitBtn;
+
+    @FXML
+    private AnchorPane Center;
 
 
     /**
@@ -229,6 +233,7 @@ public class Controller {
 
         Critter.displayWorld(worldGrid);
         initializebtn.setDisable(true);
+
 //        Circle temp = new Circle();
 //        temp.setFill(Color.BLUE);
 //        temp.setRadius(5);
