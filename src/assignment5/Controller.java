@@ -3,10 +3,13 @@ package assignment5;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -33,14 +36,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.sql.Time;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static javafx.scene.media.AudioClip.INDEFINITE;
 
-public class Controller {
+public class Controller implements Initializable{
 
     private static String myPackage = Main.class.getPackage().toString().split(" ")[1];
     private Stage stage;
@@ -96,11 +96,25 @@ public class Controller {
 
 
 
-    @FXML
-    private Button quitBtn;
+//    @FXML
+//    private Button quitBtn;
 
     @FXML
     private AnchorPane Center;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resources) {
+
+
+        AnimateSlider.valueProperty().addListener(new ChangeListener<Number>() {
+
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldNumber, Number newNumber) {
+                animate();
+
+            }
+        });
+    }
 
 
     /**
@@ -138,6 +152,7 @@ public class Controller {
         //remove all the unnecessary classes, if more classes are added. Remove Here
         arrString.remove("Main$1");
         arrString.remove("Controller");
+        arrString.remove("Controller1");
         arrString.remove("Critter$CritterShape");
         arrString.remove("Critter$TestCritter");
         arrString.remove("Critter");
@@ -232,6 +247,7 @@ public class Controller {
 
         Critter.displayWorld(worldGrid);
         initializebtn.setDisable(true);
+        turnOn();
 
 //        Circle temp = new Circle();
 //        temp.setFill(Color.BLUE);
@@ -419,7 +435,19 @@ public class Controller {
                         }
                     })
             );
-            animateStop(animate,AnimateSlider,AnimateToggle);
+            animate.setCycleCount(Animation.INDEFINITE);
+            AnimateToggle.setOnAction(event ->{
+                if(AnimateToggle.isSelected()){
+                    animate.play();
+                    turnOff();
+
+
+                }
+                else{
+                    animate.stop();
+                    turnOn();
+                }
+            } );
         }catch (Exception except){
             System.out.println((except));
         }
@@ -460,19 +488,7 @@ public class Controller {
      * @param TBtn
      */
     private void animateStop(Timeline AnimateStart, Slider speed, CheckBox TBtn) {
-        AnimateStart.setCycleCount(Animation.INDEFINITE);
-        TBtn.setOnAction(event ->{
-            if(TBtn.isSelected()){
-                AnimateStart.play();
-                turnOff();
 
-
-            }
-            else{
-                AnimateStart.stop();
-                turnOn();
-            }
-        } );
     }
 
     /**
@@ -507,6 +523,7 @@ public class Controller {
         statsToggle2.setDisable(true);
         statsToggle3.setDisable(true);
         statsToggle4.setDisable(true);
+        AnimateSlider.setDisable(true);
 
 
     }
