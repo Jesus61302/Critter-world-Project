@@ -1,3 +1,14 @@
+/*
+ * EE422C Project 5 submission by
+ * Jesus Hernandez
+ * jh69848
+ * 17155
+ * Jaime Sanchez
+ * js96757
+ * 17160
+ * Slip days used: 0
+ * Spring 2023
+ */
 package assignment5;
 
 import javafx.event.ActionEvent;

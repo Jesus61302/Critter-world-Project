@@ -1,13 +1,12 @@
 /*
  * EE422C Project 5 submission by
- * Replace <...> with your actual data.
  * Jesus Hernandez
  * jh69848
  * 17155
  * Jaime Sanchez
  * js96757
  * 17160
- * Slip days used: <0>
+ * Slip days used: 0
  * Spring 2023
  */
 package assignment5;

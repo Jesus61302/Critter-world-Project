@@ -1,12 +1,13 @@
 /*
- * Do not submit this file.
- *
- * Change these parameter values for testing either with new
- * hard-coded values or by changing them from within your testing
- * code.  For 'normal' operation, these should not be changed by your
- * own Critters, Main, or Critter class.
- *
- * Do not add or remove any parameters in this file.
+ * EE422C Project 5 submission by
+ * Jesus Hernandez
+ * jh69848
+ * 17155
+ * Jaime Sanchez
+ * js96757
+ * 17160
+ * Slip days used: 0
+ * Spring 2023
  */
 
 package assignment5;
