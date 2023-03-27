@@ -13,12 +13,19 @@
 package assignment5;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
+import static javafx.scene.media.AudioClip.INDEFINITE;
+
+
+
 public class Main extends Application {
+    public Thread thread;
 
     public static void main(String[] args) {
         launch(args);
@@ -32,7 +39,26 @@ public class Main extends Application {
         primaryStage.setTitle("Critters");
         primaryStage.centerOnScreen();
         primaryStage.show();
+        thread = new Thread(music_task);
+        thread.start();
 
 
     }
+
+
+    /**
+     * Method for music thread
+     */
+    final Task music_task = new Task() {
+
+        @Override
+        protected Object call() throws Exception {
+            int s = INDEFINITE;
+            AudioClip audio = new AudioClip(getClass().getResource("Minecraft_song.mp3").toExternalForm()); //might need to change to a wav file
+            audio.setVolume(0.3f);
+            audio.setCycleCount(s);
+            audio.play();
+            return null;
+        }
+    };
 }

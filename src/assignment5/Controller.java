@@ -94,7 +94,7 @@ public class Controller {
     @FXML
     private Button musicBtn;
 
-    public Thread thread;
+
 
     @FXML
     private Button quitBtn;
@@ -158,9 +158,7 @@ public class Controller {
         Critter.critterReset(worldGrid);
         ClearGrid();
 
-        thread.stop();
-        thread = new Thread(music_task);
-        thread.start();
+
     }
     public void ClearGrid(){
         Node node = worldGrid.getChildren().get(0);
@@ -240,8 +238,7 @@ public class Controller {
 //        worldGrid.add(temp,0,0);
 
 
-        thread = new Thread(music_task);
-        thread.start();
+
         stats0();
         stats1();
         stats2();
@@ -252,21 +249,7 @@ public class Controller {
     }
 
 
-    /**
-     * Method for music thread
-     */
-    final Task music_task = new Task() {
 
-        @Override
-        protected Object call() throws Exception {
-            int s = INDEFINITE;
-            AudioClip audio = new AudioClip(getClass().getResource("Minecraft_song.mp3").toExternalForm()); //might need to change to a wav file
-            audio.setVolume(0.3f);
-            audio.setCycleCount(s);
-            audio.play();
-            return null;
-        }
-    };
 
 
     /**
