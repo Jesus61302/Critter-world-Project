@@ -152,13 +152,16 @@ public class Controller {
 
     public void reset(ActionEvent event) throws InvalidCritterException {
         Critter.critterReset(worldGrid);
-        Node node = worldGrid.getChildren().get(0);
-        worldGrid.getChildren().clear();
-        worldGrid.getChildren().add(0,node);
+        ClearGrid();
 
         thread.stop();
         thread = new Thread(music_task);
         thread.start();
+    }
+    public void ClearGrid(){
+        Node node = worldGrid.getChildren().get(0);
+        worldGrid.getChildren().clear();
+        worldGrid.getChildren().add(0,node);
     }
 
 
@@ -318,6 +321,7 @@ public class Controller {
         try{
             int amount = Integer.parseInt(stepAmountTF.getText());
             for(int i = 0; i < amount; i++){
+                ClearGrid();
                 Critter.worldTimeStep(worldGrid);
             }
         }catch (NumberFormatException e){
