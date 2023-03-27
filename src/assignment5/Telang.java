@@ -35,7 +35,7 @@ public class Telang extends Critter{
         allTime ++;
     }
 
-    public void reset(){
+    public static void reset(){
         allTime =0;
         offspring =0;
     }

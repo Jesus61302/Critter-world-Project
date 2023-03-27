@@ -35,7 +35,7 @@ public class Nandukies extends Critter{
         dir =Critter.getRandomInt(8);
     }
 
-    public void reset(){
+    public static void reset(){
         total =0;
         offspring =0;
     }

@@ -74,6 +74,10 @@ public abstract class Critter {
     public static void critterReset(GridPane world) throws InvalidCritterException {
 
         clearWorld(); //removes the critters from the population array
+        Lee.reset();
+        Telang.reset();
+        Nandukies.reset();
+        Valvano.reset();
     }
 
 
@@ -164,7 +168,6 @@ public abstract class Critter {
                         CritterShape shape = population.get(i).viewShape();
                         Shape temp = CritterShapes.getShape(shape,length,width,population.get(i).viewFillColor(),
                                 population.get(i).viewOutlineColor());
-                        System.out.println(temp.getClass().toString());
                         world.add(temp,x,y);
 
                     }
@@ -285,7 +288,6 @@ public abstract class Critter {
      */
     public static void worldTimeStep(GridPane world) throws InvalidCritterException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         doTimeSteps();
-        // TODO call each doTimeStep
 
 
         for (int i =0; i < population.size(); i++){ //updateRest Energy ,removes dead, and resets moved status
