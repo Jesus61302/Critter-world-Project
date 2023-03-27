@@ -31,8 +31,8 @@ public class CritterShapes {
 
         triangle.getPoints().addAll(new Double[]{
                 0.0,0.0,
-                length,0.0,
-                length/2,width
+                length-1,0.0,
+                length/2,width-1
         });
 
         triangle.setFill(color);
