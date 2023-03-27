@@ -77,6 +77,11 @@ public class Telang extends Critter{
 
     @Override
     public javafx.scene.paint.Color viewOutlineColor() {
+        return Color.BLACK;
+    }
+
+    @Override
+    public javafx.scene.paint.Color viewFillColor() {
         return Color.RED;
     }
 }

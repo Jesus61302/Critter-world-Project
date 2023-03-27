@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 /**
  * this Critter tends to run most of the time but will sometimes walk or stay still
@@ -87,5 +89,10 @@ public class Lee extends Critter{
     @Override
     public javafx.scene.paint.Color viewOutlineColor() {
         return javafx.scene.paint.Color.BLUE;
+    }
+
+    @Override
+    public javafx.scene.paint.Color viewFillColor() {
+        return Color.PURPLE;
     }
 }

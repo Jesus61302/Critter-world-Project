@@ -96,4 +96,9 @@ public class Nandukies extends Critter{
     public javafx.scene.paint.Color viewOutlineColor() {
         return Color.RED;
     }
+
+    @Override
+    public javafx.scene.paint.Color viewFillColor() {
+        return javafx.scene.paint.Color.RED;
+    }
 }

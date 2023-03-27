@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 /** Valvano is a runner critter, the critter will always run no matter an encounter or not.
  * The critter is scared to face challenges so the easiest thing to do is to run away from everything, even clovers.
@@ -74,5 +76,10 @@ public class Valvano extends Critter{
     @Override
     public javafx.scene.paint.Color viewOutlineColor() {
         return javafx.scene.paint.Color.BLUE;
+    }
+
+    @Override
+    public javafx.scene.paint.Color viewFillColor() {
+        return Color.ORANGE;
     }
 }
