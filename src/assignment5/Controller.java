@@ -276,9 +276,11 @@ public class Controller {
         try {
             int amount = Integer.parseInt(populateAmount.getText());
             String crit = (String)CritterDrropDown.getValue();
-            for(int i = 0; i < amount; i++){
-                Critter.createCritter(crit);
-                Critter.displayWorld(worldGrid);
+            if (!crit.equals(null)){
+                for(int i = 0; i < amount; i++){
+                    Critter.createCritter(crit);
+                    Critter.displayWorld(worldGrid);
+                }
             }
         }
         catch(NumberFormatException e ){
@@ -419,6 +421,7 @@ public class Controller {
             Timeline animate  = new Timeline(
                     new KeyFrame(Duration.seconds(1/AnimateSlider.getValue()), event1 -> {
                         try {
+                            ClearGrid();
                             Critter.worldTimeStep(worldGrid);
                         } catch (InvalidCritterException e) {
                             throw new RuntimeException(e);
