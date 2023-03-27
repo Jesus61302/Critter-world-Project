@@ -136,6 +136,7 @@ public class Controller {
         }
 
         //remove all the unnecessary classes, if more classes are added. Remove Here
+        arrString.remove("Main$1");
         arrString.remove("Controller");
         arrString.remove("Critter$CritterShape");
         arrString.remove("Critter$TestCritter");
