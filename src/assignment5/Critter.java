@@ -147,8 +147,8 @@ public abstract class Critter {
         GridPane world = (GridPane)pane;
         Double totalLength = world.getWidth();
         Double totalHeight = world.getHeight();
-        Double length = (totalLength/Params.WORLD_WIDTH)/1.5;
-        Double width = (totalLength/Params.WORLD_HEIGHT)/1.5;
+        Double length = (totalLength/Params.WORLD_WIDTH)/2;
+        Double width = (totalLength/Params.WORLD_HEIGHT)/2;
 
         for(int x = 0; x < world.getColumnConstraints().size(); x++){
             for (int y = 0; y < world.getRowConstraints().size(); y++){
