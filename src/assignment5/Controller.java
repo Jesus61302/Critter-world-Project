@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,11 +14,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.util.Duration;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +34,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import static javafx.scene.media.AudioClip.INDEFINITE;
 
 public class Controller {
 
@@ -139,6 +146,9 @@ public class Controller {
 
     public void reset(ActionEvent event) throws InvalidCritterException {
         Critter.critterReset(worldGrid);
+        Node node = worldGrid.getChildren().get(0);
+        worldGrid.getChildren().clear();
+        worldGrid.getChildren().add(0,node);
     }
 
 
@@ -211,8 +221,33 @@ public class Controller {
 //        temp.setRadius(5);
 //        worldGrid.add(temp,0,0);
 
+//        String musicFile = "Heroic_Time.mp3";     // change name
+//        Media sound = new Media(new File(musicFile).toURI().toString());
+//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
+//        mediaPlayer.play();
+        Thread thread = new Thread(music_task);
+        thread.start();
+
+
 
     }
+
+    /**
+     * Method for music thread
+     */
+    final Task music_task = new Task() {
+
+        @Override
+        protected Object call() throws Exception {
+            int s = INDEFINITE;
+            AudioClip audio = new AudioClip(getClass().getResource("Heroic_Time.mp3").toExternalForm()); //might need to change to a wav file
+            audio.setVolume(0.3f);
+            audio.setCycleCount(s);
+            audio.play();
+            return null;
+        }
+    };
+
 
     /**
      * WHen Button is pressed, Critter selected is populated to world by amount specified
