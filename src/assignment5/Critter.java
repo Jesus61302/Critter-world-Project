@@ -143,20 +143,20 @@ public abstract class Critter {
     }
 
 
-    public static void displayWorld(Object pane) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public static void displayWorld(Object pane) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidCritterException {
         GridPane world = (GridPane)pane;
+        Double length = 10.0;
+        Double width = 10.0;
 
         for(int x = 0; x < world.getColumnConstraints().size(); x++){
             for (int y = 0; y < world.getRowConstraints().size(); y++){
                 for(int i = 0; i < population.size(); i++){
                     if (population.get(i).x_coord == x & population.get(i).y_coord == y){
-                        //todo: place Critters
-                        String shape = population.get(i).viewShape().toString();
-                        shape = shape.toLowerCase();
-                        shape = shape.substring(0,1).toUpperCase() + shape.substring(1);
-                        Object temp = Class.forName("javafx.scene.shape" +"."+ shape ).newInstance();
+                        CritterShape shape = population.get(i).viewShape();
+                        Shape temp = CritterShapes.getShape(shape,length,width,population.get(i).viewFillColor(),
+                                population.get(i).viewOutlineColor());
                         System.out.println(temp.getClass().toString());
-                        //world.add(temp,x,y);
+                        world.add(temp,x,y);
 
                     }
                 }

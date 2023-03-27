@@ -166,7 +166,7 @@ public class Controller {
      * Initializes values to Scene
      * @param event
      */
-    public void init(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public void init(ActionEvent event) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvalidCritterException {
         String[] Critters = findCritters();
         statsToggle0.setText(Critters[0]);
         statsToggle1.setText(Critters[1]);
@@ -268,6 +268,8 @@ public class Controller {
         } catch (InstantiationException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidCritterException e) {
             throw new RuntimeException(e);
         }
     }
