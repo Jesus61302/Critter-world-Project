@@ -93,6 +93,8 @@ public class Controller {
     @FXML
     private Button musicBtn;
 
+    public Thread thread;
+
     @FXML
     private Button quitBtn;
 
@@ -124,7 +126,7 @@ public class Controller {
 
         Iterator<String> iter = arrString.iterator();
         while(iter.hasNext()){
-            if(iter.next().contains("Main")){
+            if(iter.next().contains("Main") ||iter.next().contains("Controller") ){
                 iter.remove();
             }
         }
@@ -153,6 +155,10 @@ public class Controller {
         Node node = worldGrid.getChildren().get(0);
         worldGrid.getChildren().clear();
         worldGrid.getChildren().add(0,node);
+
+        thread.stop();
+        thread = new Thread(music_task);
+        thread.start();
     }
 
 
@@ -230,18 +236,10 @@ public class Controller {
 //        MediaPlayer mediaPlayer = new MediaPlayer(sound);
 //        mediaPlayer.play();
 
-
-
-
-    }
-
-    /**
-     * Method for music to play
-     * @param event
-     */
-    public void musicPlay(ActionEvent event){
-        Thread thread = new Thread(music_task);
+        thread = new Thread(music_task);
         thread.start();
+
+
     }
 
 
