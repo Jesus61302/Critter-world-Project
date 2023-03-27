@@ -239,10 +239,6 @@ public class Controller {
 //        temp.setRadius(5);
 //        worldGrid.add(temp,0,0);
 
-//        String musicFile = "Heroic_Time.mp3";     // change name
-//        Media sound = new Media(new File(musicFile).toURI().toString());
-//        MediaPlayer mediaPlayer = new MediaPlayer(sound);
-//        mediaPlayer.play();
 
         thread = new Thread(music_task);
         thread.start();
