@@ -36,6 +36,11 @@ public class Lee extends Critter{
         allTime++;
     }
 
+    public void reset(){
+        allTime =0;
+        offspring =0;
+    }
+
     @Override
     public void doTimeStep() {
         int probability = Critter.getRandomInt(10);

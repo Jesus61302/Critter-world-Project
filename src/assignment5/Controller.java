@@ -131,14 +131,14 @@ public class Controller {
         for(int i=0; i< arrString.size(); i++){
             critterNames[i] = arrString.get(i);
         }
-//        String[] critterNames = new String[5];
-//        critterNames[0] = "Goblin";
-//        critterNames[1] = "Telang";
-//        critterNames[2] = "Nandukies";
-//        critterNames[3] = "Lee";
-//        critterNames[4] = "Valvano";
+
         return critterNames;
     }
+
+    public void reset(ActionEvent event) throws InvalidCritterException {
+        Critter.critterReset(worldGrid);
+    }
+
 
     /**
      * method to exit the program

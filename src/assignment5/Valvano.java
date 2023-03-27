@@ -31,6 +31,10 @@ public class Valvano extends Critter{
         dir =Critter.getRandomInt(8);
         total++;
     }
+    public void reset(){
+        total =0;
+        offspring =0;
+    }
 
     @Override
     public String toString() {
