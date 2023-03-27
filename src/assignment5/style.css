@@ -1,3 +1,6 @@
 .bodybg{
     -fx-background-image: url("/assignment5/minecraft_background.png");
 }
+.buttonbg{
+    -fx-background-color: #808080;
+}

@@ -55,7 +55,7 @@ public class Main extends Application {
         protected Object call() throws Exception {
             int s = INDEFINITE;
             AudioClip audio = new AudioClip(getClass().getResource("Minecraft_song.mp3").toExternalForm()); //might need to change to a wav file
-            audio.setVolume(0.3f);
+            audio.setVolume(0.5f);
             audio.setCycleCount(s);
             audio.play();
             return null;

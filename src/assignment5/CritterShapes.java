@@ -64,8 +64,7 @@ public class CritterShapes {
     }
 
     public static Shape getStar(Double length, Double width, javafx.scene.paint.Color color, javafx.scene.paint.Color outline){
-        //Shape star = new Polygon();
-        //todo
+
 
 //        Polygon star = new Polygon();
         Path star = new Path();
