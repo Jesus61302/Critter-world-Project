@@ -93,7 +93,7 @@
          </children></AnchorPane>
    </center>
    <right>
-      <AnchorPane prefHeight="0.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="0.0" prefWidth="20.0" BorderPane.alignment="CENTER" />
    </right>
    <bottom>
       <AnchorPane prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
