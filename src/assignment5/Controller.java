@@ -164,6 +164,8 @@ public class Controller {
 
 
 
+
+
         }catch (Exception e){
             stats0.setText("Hi");
         }
@@ -233,6 +235,8 @@ public class Controller {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
+        }catch (Exception e){
+            System.out.println(e.toString());
         }
     }
 
@@ -415,9 +419,13 @@ public class Controller {
         TBtn.setOnAction(event ->{
             if(TBtn.isSelected()){
                 AnimateStart.play();
+                turnOff();
+
+
             }
             else{
                 AnimateStart.stop();
+                turnOn();
             }
         } );
     }
@@ -439,6 +447,41 @@ public class Controller {
         catch(  java.lang.reflect.InvocationTargetException | NoSuchMethodException| SecurityException |ClassNotFoundException| IllegalAccessException | InvalidCritterException e){ //removed InstantiationException
             return;
         }
+    }
+
+    private void turnOff(){
+        populateAmount.setDisable(true);
+        CritterDrropDown.setDisable(true);
+        AddCritterBtn.setDisable(true);
+        seedTF.setDisable(true);
+        SetSeedBTN.setDisable(true);
+        stepAmountTF.setDisable(true);;
+        StepBtn.setDisable(true);
+        statsToggle0.setDisable(true);
+        statsToggle1.setDisable(true);
+        statsToggle2.setDisable(true);
+        statsToggle3.setDisable(true);
+        statsToggle4.setDisable(true);
+
+
+    }
+    private void turnOn(){
+        populateAmount.setDisable(false);
+        CritterDrropDown.setDisable(false);
+        AddCritterBtn.setDisable(false);
+        seedTF.setDisable(false);
+        SetSeedBTN.setDisable(false);
+        stepAmountTF.setDisable(false);;
+        StepBtn.setDisable(false);
+        AnimateToggle.setDisable(false);
+        AnimateSlider.setDisable(false);
+        statsToggle0.setDisable(false);
+        statsToggle1.setDisable(false);
+        statsToggle2.setDisable(false);
+        statsToggle3.setDisable(false);
+        statsToggle4.setDisable(false);
+
+
     }
 
 
