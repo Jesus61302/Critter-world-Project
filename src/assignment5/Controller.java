@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -353,7 +354,27 @@ public class Controller {
      * @param event
      */
     public void animate(ActionEvent event){
-        //TODO
+        try{
+            Timeline animate  = new Timeline(
+                    new KeyFrame(Duration.millis(1), event1 -> {
+                        try {
+                            Critter.displayWorld(worldGrid);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        } catch (InstantiationException e) {
+                            throw new RuntimeException(e);
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        } catch (InvalidCritterException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+            );
+            animateStop(animate,AnimateSlider,AnimateToggle);
+        }catch (Exception except){
+            System.out.println((except));
+        }
+
 
     }
 
@@ -379,6 +400,42 @@ public class Controller {
             else{
                 changeTextStart.stop();
                 changeTextStop.play();
+            }
+        } );
+    }
+
+    /**
+     * Method used to add animation to world
+     * @param AnimateStart
+     * @param speed
+     * @param TBtn
+     */
+    private void animateStop(Timeline AnimateStart, Slider speed, CheckBox TBtn) {
+        Timeline AnimateStop = new Timeline(
+                new KeyFrame(Duration.seconds(1/speed.getValue()), event ->{
+                    try {
+                        Critter.displayWorld(worldGrid);
+                    } catch (ClassNotFoundException e) {
+                        throw new RuntimeException(e);
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(e);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvalidCritterException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+        );
+        AnimateStart.setCycleCount(Animation.INDEFINITE);
+        AnimateStop.setCycleCount(Animation.INDEFINITE);
+        TBtn.setOnAction(event ->{
+            if(TBtn.isSelected()){
+                AnimateStop.stop();
+                AnimateStart.play();
+            }
+            else{
+                AnimateStart.stop();
+                AnimateStop.play();
             }
         } );
     }
