@@ -22,6 +22,8 @@ import javafx.event.ActionEvent;
 import javafx.util.Duration;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+
+import javax.swing.*;
 import java.io.File;
 
 import java.io.File;
@@ -88,6 +90,8 @@ public class Controller {
     private Button initializebtn;
     @FXML
     private Button resetBtn;
+    @FXML
+    private Button musicBtn;
 
     @FXML
     private Button quitBtn;
@@ -225,12 +229,21 @@ public class Controller {
 //        Media sound = new Media(new File(musicFile).toURI().toString());
 //        MediaPlayer mediaPlayer = new MediaPlayer(sound);
 //        mediaPlayer.play();
-        Thread thread = new Thread(music_task);
-        thread.start();
+
 
 
 
     }
+
+    /**
+     * Method for music to play
+     * @param event
+     */
+    public void musicPlay(ActionEvent event){
+        Thread thread = new Thread(music_task);
+        thread.start();
+    }
+
 
     /**
      * Method for music thread
@@ -240,7 +253,7 @@ public class Controller {
         @Override
         protected Object call() throws Exception {
             int s = INDEFINITE;
-            AudioClip audio = new AudioClip(getClass().getResource("Minecraft Music [Full Playlist].mp3").toExternalForm()); //might need to change to a wav file
+            AudioClip audio = new AudioClip(getClass().getResource("Minecraft_song.mp3").toExternalForm()); //might need to change to a wav file
             audio.setVolume(0.3f);
             audio.setCycleCount(s);
             audio.play();
