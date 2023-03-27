@@ -67,7 +67,7 @@ public class Telang extends Critter{
     }
 
     public static String runStats(List<Critter> Telang ){
-        return "Alive: " + Telang.size() + "   " + "Produced as Offspring: " + offspring ;
+        return "Alive: " + Telang.size() + "\n" + "Produced as Offspring: " + offspring ;
     }
 
     @Override

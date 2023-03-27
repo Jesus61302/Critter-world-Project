@@ -84,7 +84,7 @@ public class Nandukies extends Critter{
 
     public static String runStats(List<Critter> Nandukies) {
         int totalCurrentSize = Nandukies.size();
-        return "Alive: " +totalCurrentSize + "   " + "Produced as Offspring: " +offspring;
+        return "Alive: " +totalCurrentSize + "\n" + "Produced as Offspring: " +offspring;
 
     }
     @Override

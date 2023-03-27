@@ -76,7 +76,7 @@ public class Lee extends Critter{
         return false;
     }
     public static String runStats(List<Critter> Lee ){
-        return "Alive: " + Lee.size() + "   " +  "   " + "Produced as Offspring: " + offspring ;
+        return "Alive: " + Lee.size() + "\n" + "Produced as Offspring: " + offspring ;
     }
 
     @Override

@@ -63,7 +63,7 @@ public class Valvano extends Critter{
 
     public static String runStats(List<Critter> Valvano) {
         int totalCurrentSize = Valvano.size();
-        return "Alive: " +totalCurrentSize + "   " +  "   " + "Produced as Offspring: " +offspring ;
+        return "Alive: " +totalCurrentSize + "\n" + "Produced as Offspring: " +offspring ;
     }
 
     @Override

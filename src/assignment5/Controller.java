@@ -238,7 +238,12 @@ public class Controller {
 
         thread = new Thread(music_task);
         thread.start();
-
+        stats0();
+        stats1();
+        stats2();
+        stats3();
+        stats4();
+        animate();
 
     }
 
@@ -330,7 +335,7 @@ public class Controller {
 
 
     //stats0-4 are responsible for displaying the stats of the critters
-    public void stats0(ActionEvent e){
+    public void stats0(){
         try{
             Timeline changeGolbinTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
@@ -344,7 +349,7 @@ public class Controller {
             System.out.println(exept);
         }
     }
-    public void stats1(ActionEvent e){
+    public void stats1(){
         try{
             Timeline changeLeeTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
@@ -358,7 +363,7 @@ public class Controller {
             System.out.println(exept);
         }
     }
-    public void stats2(ActionEvent e){
+    public void stats2(){
         try{
             Timeline changeNandukiesTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
@@ -372,7 +377,7 @@ public class Controller {
             System.out.println(exept);
         }
     }
-    public void stats3(ActionEvent e){
+    public void stats3(){
         try{
             Timeline changeTelangTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
@@ -386,7 +391,7 @@ public class Controller {
             System.out.println(exept);
         }
     }
-    public void stats4(ActionEvent e){
+    public void stats4(){
         try{
             Timeline changeValvanoTextStart = new Timeline(
                     new KeyFrame(Duration.millis(1), event ->{
@@ -403,9 +408,9 @@ public class Controller {
 
     /**
      * animates the world based on a toggle and a slider
-     * @param event
+     *
      */
-    public void animate(ActionEvent event){
+    public void animate(){
         try{
             Timeline animate  = new Timeline(
                     new KeyFrame(Duration.seconds(1/AnimateSlider.getValue()), event1 -> {
