@@ -24,7 +24,7 @@
             </Label>
             <Button fx:id="initializebtn" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#init" text="Initialize" />
             <Button fx:id="quitBtn" layoutX="947.0" layoutY="9.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
-            <Button layoutX="95.0" layoutY="21.0" mnemonicParsing="false" text="Reset" />
+            <Button fx:id="resetBtn" layoutX="95.0" layoutY="21.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
          </children>
       </AnchorPane>
    </top>

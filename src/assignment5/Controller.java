@@ -79,6 +79,8 @@ public class Controller {
     private GridPane worldGrid;
     @FXML
     private Button initializebtn;
+    @FXML
+    private Button resetBtn;
 
     @FXML
     private Button quitBtn;
