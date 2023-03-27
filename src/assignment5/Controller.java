@@ -124,6 +124,7 @@ public class Controller {
         arrString.remove("InvalidCritterException");
         arrString.remove("Params");
         arrString.remove("Clover");
+        arrString.remove("CritterShapes");
 
         //arrString.toArray();
         String [] critterNames = new String[arrString.size()];
@@ -260,8 +261,7 @@ public class Controller {
         try{
             int amount = Integer.parseInt(stepAmountTF.getText());
             for(int i = 0; i < amount; i++){
-                Critter.worldTimeStep();
-                Critter.displayWorld(worldGrid);
+                Critter.worldTimeStep(worldGrid);
             }
         }catch (NumberFormatException e){
             stepAmountTF.setText("Numbers Only");
@@ -356,16 +356,16 @@ public class Controller {
     public void animate(ActionEvent event){
         try{
             Timeline animate  = new Timeline(
-                    new KeyFrame(Duration.millis(1), event1 -> {
+                    new KeyFrame(Duration.seconds(1/AnimateSlider.getValue()), event1 -> {
                         try {
-                            Critter.displayWorld(worldGrid);
+                            Critter.worldTimeStep(worldGrid);
+                        } catch (InvalidCritterException e) {
+                            throw new RuntimeException(e);
                         } catch (ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         } catch (InstantiationException e) {
                             throw new RuntimeException(e);
                         } catch (IllegalAccessException e) {
-                            throw new RuntimeException(e);
-                        } catch (InvalidCritterException e) {
                             throw new RuntimeException(e);
                         }
                     })
@@ -411,31 +411,13 @@ public class Controller {
      * @param TBtn
      */
     private void animateStop(Timeline AnimateStart, Slider speed, CheckBox TBtn) {
-        Timeline AnimateStop = new Timeline(
-                new KeyFrame(Duration.seconds(1/speed.getValue()), event ->{
-                    try {
-                        Critter.displayWorld(worldGrid);
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    } catch (InstantiationException e) {
-                        throw new RuntimeException(e);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvalidCritterException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-        );
         AnimateStart.setCycleCount(Animation.INDEFINITE);
-        AnimateStop.setCycleCount(Animation.INDEFINITE);
         TBtn.setOnAction(event ->{
             if(TBtn.isSelected()){
-                AnimateStop.stop();
                 AnimateStart.play();
             }
             else{
                 AnimateStart.stop();
-                AnimateStop.play();
             }
         } );
     }

@@ -275,7 +275,7 @@ public abstract class Critter {
      * Generating required clovers
      * Finally, inserting babies into the population arraylist
      */
-    public static void worldTimeStep() {
+    public static void worldTimeStep(GridPane world) throws InvalidCritterException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         doTimeSteps();
         // TODO call each doTimeStep
 
@@ -298,6 +298,7 @@ public abstract class Critter {
             population.add(babies.get(i)); //reproduce will be done inside each subclass in their doTimeStep
         }
         babies.clear();
+        displayWorld(world);
 
     }
     /**
