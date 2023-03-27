@@ -17,14 +17,14 @@
    <top>
       <AnchorPane prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="435.0" layoutY="7.0" prefHeight="53.0" prefWidth="130.0" text="Critters" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutY="7.0" prefHeight="53.0" prefWidth="1000.0" text="Critters" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
             <Button fx:id="initializebtn" layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#init" text="Initialize" />
-            <Button fx:id="quitBtn" layoutX="947.0" layoutY="9.0" mnemonicParsing="false" onAction="#quit" text="Quit" />
-            <Button fx:id="resetBtn" layoutX="894.0" layoutY="9.0" mnemonicParsing="false" onAction="#reset" text="Reset" />
+            <Button fx:id="quitBtn" layoutX="947.0" layoutY="9.0" mnemonicParsing="false" onAction="#quit" text="Quit" AnchorPane.rightAnchor="20.0" />
+            <Button fx:id="resetBtn" layoutX="894.0" layoutY="9.0" mnemonicParsing="false" onAction="#reset" text="Reset" AnchorPane.rightAnchor="70.0" />
          </children>
       </AnchorPane>
    </top>
@@ -80,9 +80,9 @@
       </AnchorPane>
    </left>
    <center>
-      <AnchorPane fx:id="Center" maxHeight="580.0" maxWidth="650.0" prefHeight="580.0" prefWidth="650.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="Center" BorderPane.alignment="CENTER">
          <children>
-            <GridPane fx:id="worldGrid" alignment="CENTER" gridLinesVisible="true" layoutX="34.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="560.0" prefWidth="650.0" style="-fx-background-color: #C4EE1C; -fx-alignment: Center;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="worldGrid" alignment="CENTER" gridLinesVisible="true" layoutX="34.0" style="-fx-background-color: #C4EE1C; -fx-alignment: Center;" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" />
               </columnConstraints>
@@ -163,7 +163,7 @@
                   </AnchorPane>
                </children>
             </GridPane>
-            <Label layoutX="479.0" layoutY="-7.0" prefHeight="42.0" prefWidth="43.0" text="Stats" underline="true">
+            <Label alignment="CENTER" layoutX="479.0" layoutY="-7.0" prefHeight="42.0" prefWidth="43.0" text="Stats" underline="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <font>
                   <Font size="20.0" />
                </font>
