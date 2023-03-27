@@ -79,11 +79,8 @@ public class Controller {
     @FXML
     private Button initializebtn;
 
-    private static boolean statsb0;
-    private static boolean statsb1;
-    private static boolean statsb2;
-    private static boolean statsb3;
-    private static boolean statsb4;
+    @FXML
+    private Button quitBtn;
 
 
     /**
@@ -142,6 +139,14 @@ public class Controller {
     }
 
     /**
+     * method to exit the program
+     * @param event
+     */
+    public void quit(ActionEvent event){
+        System.exit(0);
+    }
+
+    /**
      * method to switch from Title screen to main screen
      * @param event
      */
@@ -173,11 +178,7 @@ public class Controller {
         statsToggle2.setText(Critters[2]);
         statsToggle3.setText(Critters[3]);
         statsToggle4.setText(Critters[4]);
-        statsb0 =false;
-        statsb1 =false;
-        statsb2 =false;
-        statsb3 =false;
-        statsb4 =false;
+
 
         CritterDrropDown.setItems(FXCollections.observableArrayList(Critters));
 

@@ -76,7 +76,7 @@ public class Lee extends Critter{
 
     @Override
     public CritterShape viewShape() {
-        return CritterShape.SQUARE;
+        return CritterShape.TRIANGLE;
     }
 
     @Override

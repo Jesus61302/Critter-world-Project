@@ -1,9 +1,6 @@
 package assignment5;
 
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
+import javafx.scene.shape.*;
 
 public class CritterShapes {
     public static Shape getCircle(Double length, Double width, javafx.scene.paint.Color color, javafx.scene.paint.Color outline){
@@ -43,8 +40,20 @@ public class CritterShapes {
     }
 
     public static Shape getStar(Double length, Double width, javafx.scene.paint.Color color, javafx.scene.paint.Color outline){
-        Shape star = new Polygon();
+        //Shape star = new Polygon();
         //todo
+
+        Path star = new Path();
+        star.getElements().addAll(new MoveTo(30, 0),
+                new LineTo(0, 30),
+                new LineTo(60, 30),
+                new ClosePath(),
+                new MoveTo(0, 10),
+                new LineTo(60, 10),
+                new LineTo(30, 40),
+                new ClosePath());
+
+
         return star;
     }
 
