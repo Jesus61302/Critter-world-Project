@@ -240,7 +240,7 @@ public class Controller {
         @Override
         protected Object call() throws Exception {
             int s = INDEFINITE;
-            AudioClip audio = new AudioClip(getClass().getResource("Heroic_Time.mp3").toExternalForm()); //might need to change to a wav file
+            AudioClip audio = new AudioClip(getClass().getResource("Minecraft Music [Full Playlist].mp3").toExternalForm()); //might need to change to a wav file
             audio.setVolume(0.3f);
             audio.setCycleCount(s);
             audio.play();
