@@ -12,6 +12,8 @@
  */
 package assignment5;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 import java.util.Objects;
 
@@ -87,6 +89,6 @@ public class Nandukies extends Critter{
 
     @Override
     public javafx.scene.paint.Color viewOutlineColor() {
-        return javafx.scene.paint.Color.BLUE;
+        return Color.RED;
     }
 }

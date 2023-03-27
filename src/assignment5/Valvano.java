@@ -64,7 +64,7 @@ public class Valvano extends Critter{
 
     @Override
     public CritterShape viewShape() {
-    return CritterShape.SQUARE;
+    return CritterShape.DIAMOND;
 }
 
     @Override
