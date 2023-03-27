@@ -66,28 +66,16 @@ public abstract class Critter {
 
     public abstract CritterShape viewShape();
 
-
+    /**
+     * clears the population array
+     * @param world
+     * @throws InvalidCritterException
+     */
     public static void critterReset(GridPane world) throws InvalidCritterException {
-        for(int i=0; i< population.size(); i++){
-            Critter critObj = population.get(i);
-            int critX = critObj.x_coord;
-            int critY = critObj.y_coord;
-            CritterShape critShape = population.get(i).viewShape();
-            whiteOut(critShape, critX, critY, world);
-        }
 
         clearWorld(); //removes the critters from the population array
     }
 
-    private static void whiteOut(CritterShape shape, int critX, int critY, GridPane world) throws InvalidCritterException {
-        Double totalLength = world.getWidth();
-        Double totalHeight = world.getHeight();
-        Double length = (totalLength/Params.WORLD_WIDTH)/2;
-        Double width = (totalLength/Params.WORLD_HEIGHT)/2;
-        Shape temp = CritterShapes.getShape(shape,length,width,Color.WHITE,Color.WHITE);
-        world.add(temp,critX,critY);
-
-    }
 
 
     /**
