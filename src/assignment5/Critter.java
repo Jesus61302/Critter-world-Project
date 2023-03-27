@@ -196,6 +196,7 @@ public abstract class Critter {
     private int x_coord;
     private int y_coord;
 
+
     private static List<Critter> population = new ArrayList<Critter>();
     private static List<Critter> babies = new ArrayList<Critter>();
 

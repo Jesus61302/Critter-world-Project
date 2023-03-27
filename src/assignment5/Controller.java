@@ -139,6 +139,8 @@ public class Controller {
 
     public void reset(ActionEvent event) throws InvalidCritterException {
         Critter.critterReset(worldGrid);
+
+
     }
 
 
@@ -188,6 +190,22 @@ public class Controller {
 
         CritterDrropDown.setItems(FXCollections.observableArrayList(Critters));
 
+        createGrid();
+
+        Critter.displayWorld(worldGrid);
+        initializebtn.setDisable(true);
+//        Circle temp = new Circle();
+//        temp.setFill(Color.BLUE);
+//        temp.setRadius(5);
+//        worldGrid.add(temp,0,0);
+
+
+    }
+
+    /**
+     * method to Create grid in correspondence to parameters
+     */
+    private void createGrid(){
         //initializes gridpane for the World
         int numCols = Params.WORLD_WIDTH;
         int numRows = Params.WORLD_HEIGHT;
@@ -203,15 +221,6 @@ public class Controller {
         }
         worldGrid.getColumnConstraints().remove(0);
         worldGrid.getRowConstraints().remove(0);
-
-        Critter.displayWorld(worldGrid);
-        initializebtn.setDisable(true);
-//        Circle temp = new Circle();
-//        temp.setFill(Color.BLUE);
-//        temp.setRadius(5);
-//        worldGrid.add(temp,0,0);
-
-
     }
 
     /**
